@@ -1,0 +1,87 @@
+.Containter{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 600px;
+    height: 100vh;    
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.DataUser{
+    width:100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap:3rem 3rem;
+    background-color:aqua;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border: 1px solid
+   
+    
+}
+
+.DataUser Datauser_Input,Datauser_Label{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.userImage{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:100%;
+    
+    
+}
+
+.userImagePreview{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 3rem;
+    
+    
+}
+
+.userImagePreview input[type="file"]{
+    display: none;
+}
+
+.userImagePreview input[type="submit"]{
+    width: 3rem;
+    margin-left: 1rem
+    
+}
+
+.userImageSubmit{
+width: 50%;
+
+}
+
+
+
+#preview{
+    width: 6rem;
+    height: 6rem;
+    background-color: blueviolet;
+    border-radius: 50%;
+}
+
+.userImageSubmit{
+   text-align: center;
+   padding-top: 1rem;
+}
+
+.userImageSubmit button{
+    width: 5rem;
+    height: 4rem;
+
+}

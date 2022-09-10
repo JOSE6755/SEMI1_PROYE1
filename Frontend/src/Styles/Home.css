@@ -1,0 +1,89 @@
+.container{
+    background-color:brown;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    width: 100%;
+    height: 100vh;
+    column-gap: 1rem;
+    
+}
+
+.left_side{
+    width:20rem;
+    height: 100vh;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 0;
+    align-items: center;
+    
+}
+
+.User_info figure img{
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+    background-color: blue;
+    
+    
+}
+
+.User_info figure figcaption{
+    
+    text-align: center;
+    
+    
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+    width: 20rem;
+
+}
+
+.buttons button{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.right_side {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    overflow: auto;
+    
+    
+    
+    
+}
+
+.right_side_up{
+    background-color: azure;
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.right_side_down{
+    width: 100%;
+    height: 50vh;
+    background-color:aquamarine;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto
+}
+
+.bordes{
+    width: 100%;
+    height: 1.5rem;
+    background-color: antiquewhite;
+}
