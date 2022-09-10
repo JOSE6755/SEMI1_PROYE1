@@ -1,0 +1,68 @@
+
+.Card_container{
+    box-sizing: content-box;
+    background-color: coral;
+    width: calc(33.33% - 2rem);
+    height: 10rem;
+    display: grid;
+    grid-template-columns: 0.25fr 1fr;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 10px;
+    
+   
+}
+
+.left_side_image {
+    
+    height: 10rem;
+    width: 100%;
+    text-align: center;
+    border-right: 1px solid;
+}
+
+.left_side_image img{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin-top: 2.5rem;
+}
+
+.card_right_side{
+    
+    height: 10rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-left: 1px solid;
+    padding-left: 0.5rem;
+    
+}
+
+.right_side button{
+    
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: 5rem; 
+    cursor:pointer;
+}
+
+.bordes{
+    border: 0.2rem;
+    border-style: solid;
+    background-color: white;
+    
+}
+
+.borde_bajo{
+    color: rgba(0, 0, 0, 0);
+    border-color: black;
+    margin-bottom: 1rem;
+}
+
+
+
