@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import useAuth from "../Auth/useAuth";
 //import { Redirect } from "react-router";
 //import useAuth from "../Auth/UseAuth";
 import "../Styles/Login.css"
 //import axios from "axios";
 
 export default function Login() {
-    
+    const {login}=useAuth()
     const [datos, setDatos] = useState({ user: null, pass: null })
     /*async function probando(e) {
         if (datos.userName != "admin") {
@@ -31,6 +32,7 @@ export default function Login() {
         const encode=Buffer.from(JSON.stringify(datos)).toString("base64")
         try {
             const result=await axios.get(`http://35.209.248.219:3000/api/usuario/login/${encode}`)
+            login(result.data)
         } catch (ex) {
             console.log(ex.response.data.message)
         }
