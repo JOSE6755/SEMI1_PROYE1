@@ -46,7 +46,7 @@ export default function Login() {
                 <input type="text" placeholder="Username" onChange={(e) => setDatos({ ...datos, user: e.target.value })} />
                 <input type="password" placeholder="Password" onChange={(e) => setDatos({ ...datos, pass: e.target.value })} />
                 <input type="submit" value="Login" />
-                <a href="/" color="white">¿No tienes cuenta?</a>
+                <a href="/register" color="white">¿No tienes cuenta?</a>
             </form>
             
         </div>
