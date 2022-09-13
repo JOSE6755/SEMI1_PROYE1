@@ -5,11 +5,12 @@ import "../Styles/Upload_file.css";
 import axios from "axios";
 
 export default function Upload() {
-  const [fileInfo, setFileInfo] = useState({});
+  const [fileInfo, setFileInfo] = useState({propietario:"jose"});
   const [preview, setPreview]=useState(null)
 
   const getFile=(e)=>{
     const file=e.target.files[0]
+    setFileInfo({...fileInfo,file:file})
     const prueba=file.name.split(".")
 
     switch (prueba[1]) {
@@ -41,10 +42,10 @@ export default function Upload() {
     data.append("file",fileInfo.file)
     delete fileInfo.file
     data.append("info",JSON.stringify(fileInfo))
-    console.log(fileInfo)
+    console.log(data)
 
     try {
-      const result= await axios.post("URL",data)
+      const result= await axios.post("http://35.209.248.219:3000/api/usuario/upload",data)
       console.log(result)
     } catch (ex) {
       console.log(ex)
@@ -57,7 +58,7 @@ export default function Upload() {
       <form className="formu" onSubmit={upload}>
         <div className="archivo">
           <label for="name">Nombre archivo</label>
-          <input type={"text"} name="name" className="textos" onChange={(e)=>{setFileInfo({...fileInfo,name:e.target.value})}} />
+          <input type={"text"} name="name" className="textos" onChange={(e)=>{setFileInfo({...fileInfo,filename:e.target.value})}} />
           
           <span>Archivo seleccionado</span>
           
@@ -70,9 +71,9 @@ export default function Upload() {
               type="radio"
               value="public"
               name="public"
-              checked={fileInfo.type === "public"}
+              checked={fileInfo.visibility === "public"}
               onChange={(e) => {
-                setFileInfo({...fileInfo,type:e.target.value});
+                setFileInfo({...fileInfo,visibility:e.target.value});
               }}
             />
             <label for="private">Privado</label>
@@ -80,9 +81,9 @@ export default function Upload() {
               type="radio"
               value="private"
               name="private"
-              checked={fileInfo.type === "private"}
+              checked={fileInfo.visibility === "private"}
               onChange={(e) => {
-                setFileInfo({...fileInfo,type:e.target.value});
+                setFileInfo({...fileInfo,visibility:e.target.value});
               }}
             />
           </div>
