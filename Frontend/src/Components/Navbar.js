@@ -12,7 +12,7 @@ export default function Navbar() {
       <ul>
         <li className="nav_link">
           <NavLink
-            to="/subir_arch"
+            to="/upload"
             style={({ isActive }) => (isActive ? activeList : undefined)}
             className="link"
           >
