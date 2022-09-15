@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import '../Styles/add.css'
 import useAuth from '../Auth/useAuth';
 
@@ -13,6 +13,7 @@ function AddFriends() {
 
   const baseUrl = `http://35.209.248.219:3000/api/usuario/getAllUsers/${username()}`
   const newFriendUrl = 'http://35.209.248.219:3000/api/usuario/addFriend'
+
 
 
   const listItems = friends.map(({ username, avatar, archivosPublicos }) =>
@@ -135,17 +136,53 @@ function AddFriends() {
               v-for="user of filteredUsers"
               class="card-top"
             >
-              {listItems}
+              {
+                friends.filter(post => {
+                  if (query === '') {
+                    return post;
+                  } else if (post.username.toLowerCase().includes(query.toLowerCase())) {
+                    return post;
+                  }
+                }).map((post, index) => (
+                  <div className="box" key={index}>
+                    <div>
+                      <div class="card-image">
+                        <img src={post.avatar} />
+                      </div>
+                      <div class="card-text">
+                        <h4>Nombre: {post.username}</h4>
+                        <p>Archivos Publicos:{post.archivosPublicos}</p>
+                        <button class="btn-gr" value={[post.username]} onClick={agregarAmigue} >
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
 
             </div>
           </div>
         </section>
 
         <footer class="modal-footer">
-        <Link to="/home">
-        <button type="button" class="btn-green" >Cerrar</button>
-        </Link>
-          
+          <Link to="/home">
+            <button type="button" class="btn-green" >Cerrar</button>
+          </Link>
+
         </footer>
       </div>
     </div>

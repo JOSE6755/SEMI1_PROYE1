@@ -25,10 +25,10 @@ export default function Home() {
     <div className="Home_container">
       <div className="left_side">
         <div className="User_info">
-          <figure>
+          <figure >
             {userData !== null ? (
               <>
-                <img src={userData.userImage} alt="pdf" />{" "}
+                <img src={userData.userImage} alt="pdf"/>{" "}
                 <figcaption>{username()}</figcaption>
               </>
             ) : (

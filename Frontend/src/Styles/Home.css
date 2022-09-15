@@ -22,11 +22,9 @@
 
 .User_info figure img{
     border-radius: 50%;
-    width: 10rem;
-    height: 10rem;
+    width: 20rem;
+    height: 20rem;
     background-color: blue;
-    
-    
 }
 
 .User_info figure figcaption{

@@ -92,6 +92,7 @@ function Editar() {
         console.log("WEEEEEEEEENAAAAAAASSSSSSSS")
         console.log(respuesta)
         setFiles(respuesta.archivos)
+        alert(respuesta.message)
 
         //setLogs(respuesta)
       }).catch(console.error)
@@ -122,7 +123,12 @@ function Editar() {
           </div>
           <div class="img-upload">
             <div class="imgPreview">
-              <img />
+            {value!=null &&           <div className="img-upload">
+            <div className="imgPreview">
+              <img src={value.imagen} />
+            </div>
+            <h4 className="h4-file">{value.name}</h4>
+          </div>}
             </div>
             <h4 class="h4-file">{nombre}</h4>
           </div>
