@@ -17,14 +17,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRoute/>}>
-          </Route>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/register" element={<Register/>}/>
-          <Route path="/" element={<Navigate to="/login" replace/>}/>
           <Route path="/add" element={<AddFriends/>}/>
           <Route path="/edit" element={<Editar/>}/>
           <Route path="/seeFiles" element={<VerArchivos/>}/>
           <Route path="/delete" element={<Eliminar/>}/>
+          </Route>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/" element={<Navigate to="/login" replace/>}/>
           
         </Routes>
       </BrowserRouter>

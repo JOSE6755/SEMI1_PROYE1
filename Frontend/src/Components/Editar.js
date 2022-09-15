@@ -1,43 +1,120 @@
 import React, { useEffect, useRef, useState } from 'react'
 import '../Styles/add.css'
 import Select from 'react-select';
+import useAuth from '../Auth/useAuth';
 
 function Editar() {
 
 
-  let list = [{ label: "hola.png", value: 1 },{ label: "So2.pdf", value: 2 },{ label: "mmm.txt", value: 3 }];
   const [nombre, setNombre] = useState([])
-  const [inputvalue, setValue] = useState('')
+  const [files, setFiles] = useState([])
+  const [newName, setNewName] = useState(null)
+
   const [selectedValued, setSelectedValue] = useState(null) //selectedValued es el valor que se selecciona en el filtro
+  const [value, setValue] = useState(null)
+  const baseUrl = 'http://35.209.248.219:3000/api/usuario/delete/getFiles'
+  const editUrl = 'http://35.209.248.219:3000/api/usuario/editFile'
+  const { username } = useAuth()
+  const [visibilidad, setVisibilidad] = useState(null)
+  const [password, setPassword] = useState(null)
   const handleInputChance = value => {
     setValue(value)
   }
 
-  const handleChange = value => {
-    setSelectedValue(value)
-    console.log(value)
-    alert('has elegido editar '+value.label)
-  }
+
+
+
+  const handleChangeEdit = event => {
+    setNewName(event.target.value);
+  };
+  const handleChange = event => {
+    setPassword(event.target.value);
+  };
+  const handleChangeVisibility = event => {
+    console.log(event.target.value)
+    setVisibilidad(event.target.value);
+  };
+
+
   useEffect(() => {
-    setNombre('ola dani')
+    getOperations()
   }, [])
 
 
+  const getOperations = async () => {
+    await fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: username()
+      })
+
+    })
+      .then(resp => resp.json())
+      .then(respuesta => {
+        console.log("WEEEEEEEEENAAAAAAASSSSSSSS")
+        console.log(respuesta.archivos)
+        setFiles(respuesta.archivos)
+
+        //setLogs(respuesta)
+      }).catch(console.error)
+  }
+
+  function editFile(){
+    editPetition()
+  }
 
 
+
+  const editPetition = async () => {
+    await fetch(editUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nuevoNombre: newName,
+        archivo: value.name,
+        nuevaVisibilidad:visibilidad,
+        usuario:username() ,
+        visibility:value.visibilidad,
+        pass: password,
+      })
+
+    })
+      .then(resp => resp.json())
+      .then(respuesta => {
+        console.log("WEEEEEEEEENAAAAAAASSSSSSSS")
+        console.log(respuesta)
+        setFiles(respuesta.archivos)
+
+        //setLogs(respuesta)
+      }).catch(console.error)
+  }
 
 
   return (
 
-    <div class="modal-backdrop">
-      <div class="modal">
+    <div class="modal-backdrop" >
+      <div class="modal" style={{width:600, height:600}}>
         <header class="modal-header"><h2>Editar Archivo</h2></header>
-        <section class="modal-body">
+        <section class="modal-body" style={{width:600, height:600}}>
           <div className='container'>
             <div className='row'>
               <div className='col-md-4'></div>
               <div className='col-md-4'>
-                <Select options={list} value={selectedValued} OnInputChange={handleChange} onChange={handleChange} />
+              <Select
+                  name="Objetos"
+                  options={files}
+                  value={value}
+                  onChange={setValue}
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.name} // It should be unique value in the options. E.g. ID
+                />
               </div>
               <div className='con-md-4'></div>
             </div>
@@ -56,7 +133,8 @@ function Editar() {
                 id="input-nombre"
                 type="text"
                 v-model="nombreFinal"
-
+                onChange={handleChangeEdit}
+                value={newName}
               />
             </div>
             <h4 class="vis">Visibilidad</h4>
@@ -66,8 +144,8 @@ function Editar() {
                 <input
                   type="radio"
                   name="radio"
-                  value="Publico"
-                  v-model="selectedVisibilidad"
+                  value="public"
+                  onChange={handleChangeVisibility}
                 />
                 <span class="checkmark"></span>
               </label>
@@ -76,9 +154,9 @@ function Editar() {
                 <input
                   type="radio"
                   name="radio"
-                  value="Privado"
+                  value="private"
                   id="priv"
-
+                  onChange={handleChangeVisibility}
                 />
                 <span class="checkmark"></span>
               </label>
@@ -86,9 +164,10 @@ function Editar() {
           </div>
         </section>
         <h4>Confirmar Contraseña</h4>
-        <input id="input-pass" type="password" v-model="pass" />
+        <input id="input-pass" type="password" v-model="pass"  onChange={handleChange}
+        value={password} />
         <footer class="modal-footer">
-          <button type="button" class="btn-green" >
+          <button type="button" class="btn-green" onClick={editFile} >
             Editar Archivo
           </button>
           <button type="button" class="btn-green" >Cerrar</button>

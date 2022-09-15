@@ -87,6 +87,7 @@ button {
     margin-top: 20px;
     text-align: center;
     height: 230px;
+    width: 400;
   }
   .btn-close {
     position: absolute;
@@ -147,4 +148,12 @@ button {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+
+  .img2 {
+    min-width: 400px;
+    min-height: 500px;
+    max-width: 400px;
+    max-height: 500px;
   }
