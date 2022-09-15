@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import useAuth from "../Auth/useAuth";
 //import { Redirect } from "react-router";
 //import useAuth from "../Auth/UseAuth";
@@ -7,25 +9,10 @@ import "../Styles/Login.css"
 //import axios from "axios";
 
 export default function Login() {
+    const navegador=useNavigate()
     const {login}=useAuth()
     const [datos, setDatos] = useState({ user: null, pass: null })
-    /*async function probando(e) {
-        if (datos.userName != "admin") {
-            e.preventDefault()
-            let usuario = null
-            await axios.get(`http://localhost:3100/login/${datos.userName}/${datos.password}`)
-                .then(response => {
-                    console.log(response.data, "hola")
-                    usuario = response.data
 
-                }).catch(err => {
-                    console.log(err)
-                })
-            await login(usuario)
-        }else{
-            login({user:"administrador",role:"Admin"})
-        }
-    }*/
 
     const verify=async (e)=>{
         e.preventDefault()
@@ -33,8 +20,12 @@ export default function Login() {
         try {
             const result=await axios.get(`http://35.209.248.219:3000/api/usuario/login/${encode}`)
             login(result.data)
+            console.log(result)
+            navegador("/seeFiles",{replace:true})
+            navegador("/delete",{replace:true})
+            navegador("/edit",{replace:true})
         } catch (ex) {
-            console.log(ex.response.data.message)
+            console.log(ex)
         }
 
     }

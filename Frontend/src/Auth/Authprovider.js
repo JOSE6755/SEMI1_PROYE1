@@ -6,7 +6,7 @@ export const Authcontext=createContext({})
 export default function Authprovider({children}) {
     const[auth,setAuth]=useState(()=>{
         const data=localStorage.getItem("user")
-        if(data){
+        if(data!==undefined){
             return JSON.parse(data)
         }else{
             return undefined

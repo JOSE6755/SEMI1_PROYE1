@@ -1,5 +1,5 @@
 import React from 'react'
-import '../add.css'
+import '../Styles/add.css'
 
 function AddFriends() {
 
