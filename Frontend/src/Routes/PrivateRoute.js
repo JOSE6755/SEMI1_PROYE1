@@ -1,11 +1,9 @@
-import useAuto from "../Auth/useAuth";
+import React from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
+import useAuth from "../Auth/useAuth";
 
 export default function PrivateRoute() {
-    const {auth}=useAuto()
-    const location=useLocation()
-
-    return(
-        auth?.user ? <Outlet/> : <Navigate to="/login" state={{from:location}} replace/>
-    )
+  const { isLogged } = useAuth();
+  const location = useLocation();
+  return isLogged()?<Outlet /> : <Navigate to="/login" replace />;
 }
