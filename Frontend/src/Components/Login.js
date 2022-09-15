@@ -24,6 +24,7 @@ export default function Login() {
             navegador("/seeFiles",{replace:true})
             navegador("/delete",{replace:true})
             navegador("/edit",{replace:true})
+            navegador("/add",{replace:true})
         } catch (ex) {
             console.log(ex)
         }
