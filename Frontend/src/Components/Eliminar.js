@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import '../estilos.css'
+import '../Styles/estilos.css'
 import Select from 'react-select';
 
 
