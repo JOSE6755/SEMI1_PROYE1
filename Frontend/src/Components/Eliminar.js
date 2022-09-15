@@ -3,6 +3,8 @@ import '../Styles/estilos.css'
 import Select from 'react-select';
 import useAuth from '../Auth/useAuth';
 import Combobox from "react-widgets/Combobox";
+import {BrowserRouter as Router, Link} from 'react-router-dom';
+
 
 
 
@@ -115,10 +117,10 @@ function Eliminar() {
   console.log(files)
 
   return (
-    <div class="modal-backdrop">
-      <div class="modal">
-        <header class="modal-header"><h2>ELIMINAR ARCHIVO</h2></header>
-        <section class="modal-body">
+    <div className="modal-backdrop">
+      <div className="modal">
+        <header className="modal-header"><h2>ELIMINAR ARCHIVO</h2></header>
+        <section className="modal-body">
           <div className='container'>
             <div className='row'>
               <div className='col-md-4'></div>
@@ -134,22 +136,24 @@ function Eliminar() {
               </div>
               <div className='con-md-4'></div>
             </div>
-          </div>{value!=null &&           <div class="img-upload">
-            <div class="imgPreview">
+          </div>{value!=null &&           <div className="img-upload">
+            <div className="imgPreview">
               <img src={value.imagen} />
             </div>
-            <h4 class="h4-file">{value.name}</h4>
+            <h4 className="h4-file">{value.name}</h4>
           </div>}
           <hr />
         </section>
         <h4>Confirmar Contraseña</h4>
         <input id="pass" type="password" v-model="pass"     name='pass'    onChange={handleChange}
         value={password}/>
-        <footer class="modal-footer">
+        <footer className="modal-footer">
           <button type="button" class="btn-green" onClick={eliminar}>
             Eliminar
           </button>
-          <button type="button" class="btn-green" >Cerrar</button>
+          <Link to="/home">
+        <button type="button" class="btn-green" >Cerrar</button>
+        </Link>
         </footer>
       </div>
     </div>

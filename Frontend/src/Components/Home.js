@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div className="container">
+    <div className="Home_container">
       <div className="left_side">
         <div className="User_info">
           <figure>

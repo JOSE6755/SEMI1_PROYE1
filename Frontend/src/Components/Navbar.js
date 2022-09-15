@@ -21,7 +21,7 @@ export default function Navbar() {
         </li>
         <li className="nav_link">
           <NavLink
-            to="/edit_arch"
+            to="/edit"
             style={({ isActive }) => (isActive ? activeList : undefined)}
             className="link"
           >
@@ -30,7 +30,7 @@ export default function Navbar() {
         </li>
         <li className="nav_link">
           <NavLink
-            to="/delete_arch"
+            to="/delete"
             style={({ isActive }) => (isActive ? activeList : undefined)}
             className="link"
           >
@@ -39,7 +39,7 @@ export default function Navbar() {
         </li>
         <li className="nav_link">
           <NavLink
-            to="/add_friend"
+            to="/add"
             className="link"
             style={({ isActive }) => (isActive ? activeList : undefined)}
           >
@@ -48,7 +48,7 @@ export default function Navbar() {
         </li>
         <li className="nav_link">
           <NavLink
-            to="/files"
+            to="/seeFiles"
             style={({ isActive }) => (isActive ? activeList : undefined)}
             className="link"
           >

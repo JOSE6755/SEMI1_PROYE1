@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import '../Styles/estilos.css'
 import useAuth from '../Auth/useAuth';
-
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 function VerArchivos() {
   const [files, setFiles] = useState([])
@@ -112,7 +112,9 @@ function VerArchivos() {
         {listItems}
         </section>
         <footer class="modal-footer" style={{ height:100}}>
-          <button type="button" class="btn-green" onClick={cerrar}>Cerrar</button>
+        <Link to="/home">
+        <button type="button" class="btn-green" >Cerrar</button>
+        </Link>
         </footer>
       </div>
 

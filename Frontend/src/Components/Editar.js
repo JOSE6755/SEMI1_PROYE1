@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import '../Styles/add.css'
 import Select from 'react-select';
 import useAuth from '../Auth/useAuth';
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 function Editar() {
 
@@ -170,8 +171,9 @@ function Editar() {
           <button type="button" class="btn-green" onClick={editFile} >
             Editar Archivo
           </button>
-          <button type="button" class="btn-green" >Cerrar</button>
-        </footer>
+          <Link to="/home">
+        <button type="button" class="btn-green" >Cerrar</button>
+        </Link>        </footer>
       </div>
     </div>
   )
