@@ -21,9 +21,8 @@ export default function Login() {
             const result=await axios.get(`http://35.209.248.219:3000/api/usuario/login/${encode}`)
             login(result.data)
             console.log(result)
-            navegador("/seeFiles",{replace:true})
-            navegador("/delete",{replace:true})
-            navegador("/edit",{replace:true})
+            navegador("/home")
+           
         } catch (ex) {
             console.log(ex)
         }
