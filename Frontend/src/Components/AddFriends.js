@@ -62,6 +62,7 @@ function AddFriends() {
       .then(resp => resp.json())
       .then(respuesta => {
         // console.log("WEEEEEEEEENAAAAAAASSSSSSSS")
+        console.log(respuesta)
         console.log(respuesta.usuarios)
         setFriends(respuesta.usuarios)
         // wenas()

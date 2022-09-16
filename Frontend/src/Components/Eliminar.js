@@ -99,7 +99,7 @@ function Eliminar() {
         archivo: value.name,
         visibility: value.visibilidad,
         usuario:username(),
-        pass: password
+        passw: password
       })
 
     })
@@ -107,8 +107,7 @@ function Eliminar() {
       .then(respuesta => {
         console.log("WEEEEEEEEENAAAAAAASSSSSSSS")
         console.log(respuesta)
-       
-
+        alert(respuesta.message)
         //setLogs(respuesta)
       }).catch(console.error)
   }

@@ -83,7 +83,7 @@ function Editar() {
         nuevaVisibilidad:visibilidad,
         usuario:username() ,
         visibility:value.visibilidad,
-        pass: password,
+        passw: password,
       })
 
     })
