@@ -1,15 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import "../Styles/Home.css";
 import pdfimg from "../Images/PDF.png";
+import useAuth from "../Auth/useAuth";
+import axios from "axios";
 export default function Home() {
+  const { username } = useAuth();
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    getfiles();
+  }, []);
+
+  const getfiles = async () => {
+    try {
+      const result = await axios.get(
+        `http://35.209.248.219:3000/api/user/${username()}`
+      );
+      setUserData(result.data);
+      console.log(result.data)
+    } catch (ex) {}
+  };
+
   return (
-    <div className="container">
+    <div className="Home_container">
       <div className="left_side">
         <div className="User_info">
-          <figure>
-            <img src={pdfimg} alt="pdf" />
-            <figcaption>Username</figcaption>
+          <figure >
+            {userData !== null ? (
+              <>
+                <img src={userData.userImage} alt="pdf"/>{" "}
+                <figcaption>{username()}</figcaption>
+              </>
+            ) : (
+              <>
+                <img src={pdfimg} alt="pdf" />
+                <figcaption>Username</figcaption>
+              </>
+            )}
           </figure>
         </div>
         <div className="buttons">
@@ -21,30 +48,26 @@ export default function Home() {
         </div>
       </div>
       <div className="right_side">
-      <div className="bordes">Publicos</div>
+        <div className="bordes">Publicos</div>
         <div className="right_side_up">
-          
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          
+          {userData !== null ? (
+            userData.PubFiles.map((data) => {
+              return <Cards data={data} />;
+            })
+          ) : (
+            <h2>No hay archivos</h2>
+          )}
         </div>
         <div className="bordes borde_bajo">hola </div>
         <div className="bordes">Privados</div>
         <div className="right_side_down">
-          
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          
+          {userData !== null ? (
+            userData.privFiles.map((data) => {
+              return <Cards data={data} />;
+            })
+          ) : (
+            <h2>No hay archivos</h2>
+          )}
         </div>
         <div className="bordes borde_bajo">hola </div>
       </div>
