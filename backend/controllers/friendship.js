@@ -26,19 +26,19 @@ async function addFriend(req, res, next) {
         }
     } catch (err) {
         if (err.code === undefined) {
-            next.status(status.INTERNAL_SERVER_ERROR).json({message: "Error en add Friend ", error: err}).end();
+            res.status(status.INTERNAL_SERVER_ERROR).json({message: "Error en add Friend ", error: err.toString()}).end();
         }
         switch (err.code) {
             case"ETIMEDOUT":
-                next.status(status.INTERNAL_SERVER_ERROR).json({
+                res.status(status.INTERNAL_SERVER_ERROR).json({
                     message: "Error en addFriends, no hay conexión con la base de datos",
-                    error: err
+                    error: err.toString(),
                 }).end();
                 break;
             default:
-                next.status(status.INTERNAL_SERVER_ERROR).json({message: "Error en addFriends", error: err}).end();
+                res.status(status.INTERNAL_SERVER_ERROR).json({message: "Error en addFriends", error: err.toString()}).end();
         }
-        next(err)
+        next(err.toString())
     }
 }
 

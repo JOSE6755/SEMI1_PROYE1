@@ -19,6 +19,7 @@ async function getAllFilesUser(req, res, next){
 
         pubFiles[0].forEach( fileI => {
             fileFF = {}
+            fileFF.id = fileI.id
             fileFF.name = fileI.file_name
             fileFF.propietario = fileI.username
             fileFF.fecha_creacion = fileI.creation_date
@@ -39,6 +40,7 @@ async function getAllFilesUser(req, res, next){
 
         privFiles[0].forEach( fileI => {
             fileFF = {}
+            fileFF.id = fileI.id
             fileFF.name = fileI.file_name
             fileFF.propietario = fileI.username
             fileFF.fecha_creacion = fileI.creation_date

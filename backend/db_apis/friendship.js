@@ -43,10 +43,8 @@ async function getFilesFromFriends(username, req){
 }
 
 
-async function addFriend(friendship, req){
-    const friendShp = Object.assign({}, friendship, req)
-
-    if (req.body )
+async function addFriend(friendship){
+    const friendShp = Object.assign({}, friendship)
 
     return await  database.simpleExecuteWithDate(addFriendQ, friendShp)
 }

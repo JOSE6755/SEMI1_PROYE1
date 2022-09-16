@@ -3,7 +3,7 @@ const database = require("../services/database");
 const delete_getFilesQ = `
 select file_name,
        U.username,
-       IF(public <> 0, 'private', 'public')          as visibility,
+       IF(public <> 0, 'public', 'private')          as visibility,
        DATE_FORMAT(creation_date, '%Y-%m%-%d %H:%i') as "creation_date",
         url_bucket
 from File
@@ -12,10 +12,11 @@ where U.username = ?
 `
 
 const getAllUserFilesQ = `
-select file_name,
+select  id_file as 'id',
+        file_name,
        username,
-       DATE_FORMAT(edition_date, '%Y-%m%-%d %H:%i')  as "edition_date",
-       DATE_FORMAT(creation_date, '%Y-%m%-%d %H:%i') as "creation_date",
+       DATE_FORMAT(edition_date, '%Y-%m%-%d')  as "edition_date",
+       DATE_FORMAT(creation_date, '%Y-%m%-%d') as "creation_date",
        url_bucket
 from File
          join User U on U.id_user = File.id_owner

@@ -2,7 +2,7 @@ const users = require('../db_apis/user')
 const status = require('http-status')
 const crypto = require('crypto')
 const path = require('path');
-
+const s3 = require('../services/s3')
 
 async function postRegister(req, res, next) {
     const file = req.file
@@ -17,6 +17,7 @@ async function postRegister(req, res, next) {
     let data;
     let user;
     let newUser;
+    let random, fileName, keyFile, s3_dir
 
     try {
         newUser = JSON.parse(req.body.info)
@@ -25,9 +26,15 @@ async function postRegister(req, res, next) {
         user.push(newUser.user.trim())
         user.push(data.digest('hex'))
         user.push(newUser.correo.trim())
-        user.push("test")
+        // user.push("test")
 
         ///mandar imagen a amazon
+        random =   (Math.floor(Math.random() * 10000) + 1).toString()
+        fileName = "imagenes/"+ req.file.name
+        keyFile = random + req.file.name
+
+        s3_dir  = await  s3.uploadS3(fileName,keyFile)
+        user.push(s3_dir)
 
         user = await users.create(user)
         if (user === undefined) {
@@ -138,9 +145,9 @@ async function postLogin(req, res, next) {
         userA.push(passSHA.digest('hex'))
         isValid = await users.login(userA)
         if (isValid[0].length === 1) {
-            res.status(status.OK).json({user: userA[0]}).end()
+            res.status(status.OK).json({user: userA[0], message: "Inicio de sesión correcto, Bienvenido: + "+ userA[0] }).end()
         } else {
-            res.status(status.BAD_REQUEST).json({message: "Combinación Username y Contraseña Incorrecta"}).end()
+            res.status(status.BAD_REQUEST).json({message: "Combinación Username y/o contraseña Incorrecta, vuelva a intentarlo"}).end()
         }
     } catch (err) {
         if (err.code === undefined) {
@@ -163,25 +170,32 @@ async function postLogin(req, res, next) {
 async function editFile(req, res, next) {
     let editJs, isValid
     let editA = []
+    const hash = crypto.createHash('sha512');
 
 
     try {
-        editJs = JSON.parse(req.body.info)
-        editA.push((editJs.nuevonombre.substring(0, editJs.nuevonombrelastIndexOf('.')) ||
-            editJs.nuevonombre) + path.extname(editJs.archivo.trim()))
+        editJs = req.body
+        let passSH = hash.update(String(req.body.passw).trim(), 'utf-8')
+        //new values
+        editA.push((editJs.nuevoNombre.substring(0, editJs.nuevoNombre.lastIndexOf('.')) ||
+            editJs.nuevoNombre) + path.extname(editJs.archivo.trim()))
         editA.push(new Date().toISOString().slice(0, 19).replace('T', ' '))
-        editA.push(editJs.usuerio.trim())
+        editA.push(editJs.nuevaVisibilidad.toLowerCase().trim() === "public")
+
+        //conditions
+        editA.push(editJs.usuario.trim())
         editA.push(editJs.visibility.toLowerCase().trim() === "public")
         editA.push(editJs.archivo.trim())
+        editA.push(passSH.digest('hex'))
 
         isValid = await users.editFile(editA)
         if (isValid[0].affectedRows === 1) {
-            res.status(status.OK).json({message: "Archivo editado correctamente"}).end()
+            res.status(status.OK).json({message: "Archivo "+ req.body.archivo  +" editado correctamente"}).end()
         } else {
             res.status(status.BAD_REQUEST).json({
                 message:
-                    "Error el archivo no se ha podido editar porque no existe el archivo: " +
-                    deleteA[0] + " vinculado al usuario: " + deleteA[1] + " con visibilidad: " +
+                    "Error: el archivo no se ha podido editar porque no existe el archivo: " +
+                    editA[0] + " vinculado al usuario: " + editA[1] + " con visibilidad: " +
                     (editA[3] ? "publica " : "privada")
             }).end()
         }
@@ -191,20 +205,20 @@ async function editFile(req, res, next) {
         if (err.code === undefined) {
             res.status(status.INTERNAL_SERVER_ERROR).json({
                 message: "Error en la Edicion del archivo",
-                error: err
+                error: err.toString()
             }).end();
         }
         switch (err.code) {
             case"ETIMEDOUT":
                 res.status(status.INTERNAL_SERVER_ERROR).json({
                     message: "Error en la edición del archivo, no hay conexión con la base de datos",
-                    error: err
+                    error: err.toString()
                 }).end();
                 break;
             default:
                 res.status(status.INTERNAL_SERVER_ERROR).json({
                     message: "Error en la edición de un archivo",
-                    error: err
+                    error: err.toString()
                 }).end();
         }
         next(err)
@@ -222,7 +236,7 @@ async function deleteFile(req, res, next) {
         deleteA.push(req.body.archivo.trim())
         deleteA.push(req.body.visibility.toLowerCase().trim() === "public")
         deleteA.push(req.body.usuario.trim())
-        let passSH = hash.update(String(req.body.pass).trim(), 'utf-8')
+        let passSH = hash.update(String(req.body.passw).trim(), 'utf-8')
         deleteA.push(passSH.digest('hex'))
 
         isValid = await users.deleteFile(deleteA)
@@ -232,8 +246,8 @@ async function deleteFile(req, res, next) {
         } else {
             res.status(status.BAD_REQUEST).json({
                 message:
-                    "Error el archivo no se ha podido eliminar porque no existe el archivo: " +
-                    deleteA[0] + " vinculado al usuario: " + deleteA[1]
+                    "Error:  el archivo" + deleteA[0] + " no se ha podido eliminar porque no existe el archivo: " +
+                    "ó no esta vinculado al usuario: " + deleteA[2]
             }).end()
         }
     } catch (err) {
@@ -272,7 +286,9 @@ async function uploadFile(req, res, next) {
 
     }
 
+
     let upload, passSH, query
+    let random, fileName, keyFile, s3_dir
     let uploadA = []
     const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
@@ -286,10 +302,17 @@ async function uploadFile(req, res, next) {
         uploadA.push((upload.visibility.toLowerCase().trim() === "public")) //public
         uploadA.push(now) //creation_date
         uploadA.push(now) //edition_date
-        /// mandar imagen a amazaon....
+        /// mandar imagen a amazan....
+
+        random =   (Math.floor(Math.random() * 10000) + 1).toString()
+        fileName = "files/"+ req.file.name
+        keyFile = random + req.file.name
+
+        s3_dir  = await  s3.uploadS3(fileName,keyFile)
 
 
-        uploadA.push("buket url....") //edition_date
+
+        uploadA.push(s3_dir) //edition_date
         uploadA.push(upload.propietario.trim()) // propietario
         uploadA.push(passSH.digest('hex')) //Pass
 

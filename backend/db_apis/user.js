@@ -27,8 +27,8 @@ where file_name = ?
 const editFileQ = `
 update File, User
 join File F on User.id_user = F.id_owner
-set F.file_name = ?, F.edition_date = ?
-where User.username = ? and F.public = ? and F.file_name = ?
+set F.file_name = ?, F.edition_date = ?, F.public = ?
+where User.username = ? and F.public = ? and F.file_name = ? and User.password = ?;
 `
 
 const getFilesFromFriendsQuery = `
