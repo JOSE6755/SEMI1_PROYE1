@@ -1,9 +1,12 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import "../Styles/Navbar.css";
+import useAuth from "../Auth/useAuth";
 export default function Navbar() {
 
-  //ssss
+  //sssscons
+
+  const {logout}=useAuth()
   let activeList = {
     textDecoration: "underline",
   };
@@ -55,6 +58,16 @@ export default function Navbar() {
             Ver Archivos
 
 
+          </NavLink>
+        </li>
+        <li className="nav_link">
+          <NavLink
+            to="/"
+            style={({ isActive }) => (isActive ? activeList : undefined)}
+            className="link"
+            onClick={logout}
+           >
+           LogOut
           </NavLink>
         </li>
       </ul>

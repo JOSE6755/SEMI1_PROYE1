@@ -48,8 +48,12 @@ export default function Cards({ data }) {
         >
           <Box sx={style}>
             {data.ext === '.pdf' && <embed type="application/pdf" style={{ width: 700, height: 600 }} src={'https://docs.google.com/viewer?url=' + data.url + '&embedded=true'} />}
-            {data.ext === '.txt' && <embed type="text/html" style={{ width: 300, height: 300 }} src={'https://docs.google.com/viewer?url=' + data.url + '&embedded=true'} />}
-            {data.ext !== '.pdf' && <img className='img2' src={data.url}></img>}
+            {data.ext === '.txt' && <embed type="text/html" style={{ width: 300, height: 300, margin:'25%'}} src={'https://docs.google.com/viewer?url=' + data.url + '&embedded=true'} />}
+            {(data.ext !=='.pdf' && data.ext!=='.txt') && <img  style={{position: 'relative',
+  left: '25%',
+  display: 'flex',
+  width: '100%',
+  height: '800px'}}  className='img2' src={data.url}></img>}
           </Box>
         </Modal>
 
