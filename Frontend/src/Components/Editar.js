@@ -13,8 +13,8 @@ function Editar() {
 
   const [selectedValued, setSelectedValue] = useState(null) //selectedValued es el valor que se selecciona en el filtro
   const [value, setValue] = useState(null)
-  const baseUrl = 'http://35.209.248.219:3000/api/usuario/delete/getFiles'
-  const editUrl = 'http://35.209.248.219:3000/api/usuario/editFile'
+  const baseUrl = 'http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/delete/getFiles'
+  const editUrl = 'http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/editFile'
   const { username } = useAuth()
   const [visibilidad, setVisibilidad] = useState(null)
   const [password, setPassword] = useState(null)
