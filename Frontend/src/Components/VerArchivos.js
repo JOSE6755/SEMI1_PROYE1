@@ -10,7 +10,7 @@ function VerArchivos() {
   
 
   const { username } = useAuth()
-  const baseUrl = `http://35.209.248.219:3000/api/usuario/seeAllFiles/${username()}`
+  const baseUrl = `http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/seeAllFiles/${username()}`
 
   useEffect(() => {
     getOperations()

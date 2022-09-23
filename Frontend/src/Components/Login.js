@@ -18,7 +18,7 @@ export default function Login() {
         e.preventDefault()
         const encode=Buffer.from(JSON.stringify(datos)).toString("base64")
         try {
-            const result=await axios.get(`http://35.209.248.219:3000/api/usuario/login/${encode}`)
+            const result=await axios.get(`http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/login/${encode}`)
             login(result.data)
             console.log(result)
             navegador("/home")

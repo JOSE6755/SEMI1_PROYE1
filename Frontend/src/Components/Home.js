@@ -14,7 +14,7 @@ export default function Home() {
   const getfiles = async () => {
     try {
       const result = await axios.get(
-        `http://35.209.248.219:3000/api/user/${username()}`
+        `http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/user/${username()}`
       );
       setUserData(result.data);
       console.log(result.data)

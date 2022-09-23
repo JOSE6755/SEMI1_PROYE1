@@ -46,7 +46,7 @@ export default function Upload() {
     console.log(data)
 
     try {
-      const result= await axios.post("http://35.209.248.219:3000/api/usuario/upload",data)
+      const result= await axios.post("http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/upload",data)
       console.log(result)
     } catch (ex) {
       console.log(ex)

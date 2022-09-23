@@ -19,8 +19,8 @@ function Eliminar() {
   const [viewPic, setViewPic] = useState([])
   
   const { username } = useAuth()
-  const baseUrl = 'http://35.209.248.219:3000/api/usuario/delete/getFiles'
-  const eliminarUrl='http://35.209.248.219:3000/api/usuario/deleteFile'
+  const baseUrl = 'http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/delete/getFiles'
+  const eliminarUrl='http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/deleteFile'
   console.log('------------------')
   console.log(username())
   console.log('------------------')

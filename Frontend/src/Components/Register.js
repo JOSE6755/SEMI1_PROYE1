@@ -39,7 +39,7 @@ export default function Register() {
     data.append("info",JSON.stringify(userInfo))
 
     try{
-      const res=axios.post("http://35.209.248.219:3000/api/usuario/registro",data);
+      const res=axios.post("http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/registro",data);
       console.log(res)
     }catch(ex){
       console.log(ex)

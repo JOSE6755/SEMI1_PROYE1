@@ -11,8 +11,8 @@ function AddFriends() {
   const [newFriend, setNewFriend] = useState(null)
   const [query, setQuery] = useState("")
 
-  const baseUrl = `http://35.209.248.219:3000/api/usuario/getAllUsers/${username()}`
-  const newFriendUrl = 'http://35.209.248.219:3000/api/usuario/addFriend'
+  const baseUrl = `http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/getAllUsers/${username()}`
+  const newFriendUrl = 'http://semi1-g2-397791917.us-east-1.elb.amazonaws.com/api/usuario/addFriend'
 
 
 
